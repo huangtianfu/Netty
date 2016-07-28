@@ -1,4 +1,6 @@
 # Netty
-Netty; Spring; Hibernate; Druid; Redis
 Netty Server!
-Include Spring framework, Hibernate, Druid datasource manager, Redis.
+Include Spring framework, Hibernate,
+Druid datasource manage mysql connection.
+Hibernate template manage redis connection.
+Maven manage libraries.
