@@ -7,7 +7,9 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+    <!-- dao扫描目录 -->
     <context:component-scan base-package="database.rds" />
+    <!-- 数据库属性配置文件目录 -->
     <context:property-placeholder location="classpath:database_rds.properties" ignore-unresolvable="true"/>
 
     <!-- server database pool -->
