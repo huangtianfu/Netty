@@ -1,10 +1,9 @@
-package database.rds.server.impl;
+package dao;
 
-import database.rds.base.RdsDatabaseException;
-import database.rds.base.SqlParam;
-import database.rds.server.dao.ServerBaseDao;
-import database.rds.server.dao.UserDao;
-import database.rds.server.entity.User;
+import dao.base.RdsDatabaseException;
+import dao.base.ServerBaseDao;
+import dao.base.SqlParam;
+import dao.entity.User;
 import org.springframework.stereotype.Repository;
 
 @Repository("UserDaoImpl")

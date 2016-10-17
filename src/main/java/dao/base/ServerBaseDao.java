@@ -1,12 +1,11 @@
-package database.rds.server.dao;
+package dao.base;
 
-import database.rds.base.GenericDaoHibernateImpl;
 import org.hibernate.SessionFactory;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
 
-public class ServerBaseDao<T, PK extends Serializable> extends GenericDaoHibernateImpl<T, PK> {
+public class ServerBaseDao<T, PK extends Serializable> extends GenericDaoImpl<T, PK> {
     public ServerBaseDao() {
         super();
     }

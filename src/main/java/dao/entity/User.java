@@ -1,4 +1,4 @@
-package database.rds.server.entity;
+package dao.entity;
 
 public class User {
     private Long id;

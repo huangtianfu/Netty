@@ -1,12 +1,13 @@
-package database.rds.base;
+package service;
 
+import dao.base.GenericDao;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class DaoBaseService {
+public class BaseService {
     private static ApplicationContext mAppContext = null;
 
-    public DaoBaseService() {
+    public BaseService() {
         if (null == mAppContext) {
             mAppContext = new ClassPathXmlApplicationContext("/spring/mysql.xml");
         }

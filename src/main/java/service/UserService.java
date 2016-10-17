@@ -1,14 +1,13 @@
-package database.rds.server.service;
+package service;
 
-import database.rds.base.DaoBaseService;
-import database.rds.base.RdsDatabaseException;
-import database.rds.server.entity.User;
-import database.rds.server.impl.UserDaoImpl;
+import dao.base.RdsDatabaseException;
+import dao.entity.User;
+import dao.UserDaoImpl;
 
-public class UserDaoService extends DaoBaseService {
-    private static UserDaoImpl userDao;
+public class UserService extends BaseService {
+    private UserDaoImpl userDao;
 
-    public UserDaoService() {
+    public UserService() {
         userDao = (UserDaoImpl) getDaoBean(UserDaoImpl.class);
     }
 
