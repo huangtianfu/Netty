@@ -1,6 +1,5 @@
 package service;
 
-import dao.base.RdsDatabaseException;
 import dao.entity.User;
 import dao.UserDaoImpl;
 
@@ -11,11 +10,11 @@ public class UserService extends BaseService {
         userDao = (UserDaoImpl) getDaoBean(UserDaoImpl.class);
     }
 
-    public Boolean has(Long id) throws RdsDatabaseException {
+    public Boolean has(Long id) {
         return userDao.has(id);
     }
 
-    public void setName(Long id, String name) throws RdsDatabaseException {
+    public void setName(Long id, String name) {
         User user = new User();
         user.setId(id);
         user.setName(name);
