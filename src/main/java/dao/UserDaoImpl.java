@@ -2,7 +2,7 @@ package dao;
 
 import dao.base.ServerBaseDao;
 import dao.base.SqlParam;
-import dao.entity.User;
+import entity.User;
 import org.springframework.stereotype.Repository;
 
 @Repository("UserDaoImpl")

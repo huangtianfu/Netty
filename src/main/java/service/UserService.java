@@ -1,6 +1,6 @@
 package service;
 
-import dao.entity.User;
+import entity.User;
 import dao.UserDaoImpl;
 
 public class UserService extends BaseService {

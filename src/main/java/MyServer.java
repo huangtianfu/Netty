@@ -11,9 +11,6 @@ import org.apache.log4j.PropertyConfigurator;
 import protocol.Protocol;
 import thread.HeartThread;
 
-/**
- * Created by Aaron Sheng on 7/28/16.
- */
 public class MyServer {
     public static void main(String[] args) throws Exception {
         PropertyConfigurator.configure(MyServer.class.getResourceAsStream("/log4j.properties"));

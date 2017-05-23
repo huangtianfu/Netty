@@ -15,8 +15,6 @@ public class EventHandler extends ChannelInboundHandlerAdapter {
     public void handlerAdded(ChannelHandlerContext ctx) {
         mByteBuf = ctx.alloc().buffer();
         mTcpConnection = new TcpConnection(ctx);
-
-        System.out.println("Added " + ctx.toString());
     }
 
     @Override
@@ -24,8 +22,6 @@ public class EventHandler extends ChannelInboundHandlerAdapter {
         mTcpConnection.close();
         mByteBuf.release();
         mByteBuf = null;
-
-        System.out.println("Removed " + ctx.toString());
     }
 
     @Override
@@ -40,23 +36,22 @@ public class EventHandler extends ChannelInboundHandlerAdapter {
         tmpBuf.release();
 
         while (mByteBuf.readableBytes() >= Protocol.MAX_HEAD_LEN) {
-            // System.out.println("readable: " + mByteBuf.readableBytes());
-
-            // get bytes from byte buffer.
+            // get header bytes from byte buffer.
             byte[] headBuf = new byte[Protocol.MAX_HEAD_LEN];
             mByteBuf.getBytes(0, headBuf);
 
             int bodyLen = StringUtils.string2Int(new String(headBuf));
 
-            // something goes wrong. break the loop.
+            // header bytes wrong. break the loop.
             if (bodyLen <= 0 || bodyLen > Protocol.MAX_DATA_LEN) {
                 mTcpConnection.close();
                 break;
             }
 
             // not enough data. wait for next read.
-            if (mByteBuf.readableBytes() < (bodyLen + Protocol.MAX_HEAD_LEN))
+            if (mByteBuf.readableBytes() < (bodyLen + Protocol.MAX_HEAD_LEN)) {
                 break;
+            }
 
             // get body bytes from byte buffer.
             byte[] bodyBuf = new byte[bodyLen];
