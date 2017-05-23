@@ -20,15 +20,17 @@ public class SocketClient {
     private InetSocketAddress mInetSocketAddress = null;
 
     public SocketClient(InetSocketAddress socketAddress) throws SocketConnectException {
-        if (bootstrap == null)
+        if (bootstrap == null) {
             initBootstrap();
+        }
 
         connect(socketAddress);
     }
 
     public SocketClient(String ip, int port) throws SocketConnectException {
-        if (bootstrap == null)
+        if (bootstrap == null) {
             initBootstrap();
+        }
 
         connect(new InetSocketAddress(ip, port));
     }

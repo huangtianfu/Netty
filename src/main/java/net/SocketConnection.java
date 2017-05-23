@@ -4,12 +4,12 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import utils.time.MyTime;
 
-public class TcpConnection {
+public class SocketConnection {
     private ChannelHandlerContext mChannelHandlerContext;
     private String userName;
     private String timestamp;
 
-    public TcpConnection(ChannelHandlerContext ctx) {
+    public SocketConnection(ChannelHandlerContext ctx) {
         mChannelHandlerContext = ctx;
         userName = null;
         timestamp = (new MyTime()).format() + ctx.name();
@@ -45,9 +45,9 @@ public class TcpConnection {
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof TcpConnection) {
-            TcpConnection tcpConnection = (TcpConnection) object;
-            if (timestamp.equals(tcpConnection.timestamp)) {
+        if (object instanceof SocketConnection) {
+            SocketConnection socketConnection = (SocketConnection) object;
+            if (timestamp.equals(socketConnection.timestamp)) {
                 return true;
             }
         }

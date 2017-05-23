@@ -1,25 +1,25 @@
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import net.TcpConnection;
+import net.SocketConnection;
 import org.apache.log4j.Logger;
 import protocol.Protocol;
-import utils.string.StringUtils;
+import utils.ByteUtils;
 
 public class EventHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = Logger.getLogger(EventHandler.class);
     private ByteBuf mByteBuf;
-    private TcpConnection mTcpConnection;
+    private SocketConnection mSocketConnection;
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) {
         mByteBuf = ctx.alloc().buffer();
-        mTcpConnection = new TcpConnection(ctx);
+        mSocketConnection = new SocketConnection(ctx);
     }
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) {
-        mTcpConnection.close();
+        mSocketConnection.close();
         mByteBuf.release();
         mByteBuf = null;
     }
@@ -40,11 +40,11 @@ public class EventHandler extends ChannelInboundHandlerAdapter {
             byte[] headBuf = new byte[Protocol.MAX_HEAD_LEN];
             mByteBuf.getBytes(0, headBuf);
 
-            int bodyLen = StringUtils.string2Int(new String(headBuf));
+            int bodyLen = ByteUtils.fourBytes2Int(headBuf);
 
-            // header bytes wrong. break the loop.
+            // header bytes present length wrong. break the loop.
             if (bodyLen <= 0 || bodyLen > Protocol.MAX_DATA_LEN) {
-                mTcpConnection.close();
+                mSocketConnection.close();
                 break;
             }
 
@@ -57,7 +57,7 @@ public class EventHandler extends ChannelInboundHandlerAdapter {
             byte[] bodyBuf = new byte[bodyLen];
             mByteBuf.getBytes(Protocol.MAX_HEAD_LEN, bodyBuf);
 
-            boolean result = HandlerDispatcher.distribute(mTcpConnection, new String(bodyBuf));
+            boolean result = HandlerDispatcher.distribute(mSocketConnection, new String(bodyBuf));
 
             // get head and body data from buffer. and decrease readIndex and writeIndex.
             ByteBuf pckBuf = mByteBuf.readBytes(Protocol.MAX_HEAD_LEN + bodyLen);
@@ -65,7 +65,7 @@ public class EventHandler extends ChannelInboundHandlerAdapter {
             mByteBuf.discardReadBytes();
 
             if (!result) {
-                mTcpConnection.close();
+                mSocketConnection.close();
                 break;
             }
         }

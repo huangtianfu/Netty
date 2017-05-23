@@ -1,4 +1,4 @@
-package utils.string;
+package utils;
 
 public class StringUtils {
     public static String reverse(String string) {
