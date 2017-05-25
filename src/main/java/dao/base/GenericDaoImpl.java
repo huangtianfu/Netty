@@ -115,6 +115,7 @@ public class GenericDaoImpl<T, PK extends Serializable> extends HibernateDaoSupp
         return (Long) createQuery(sql, params).uniqueResult();
     }
 
+
     private Query createQuery(String sql, SqlParam... params) {
         Query queryObject = super.currentSession().createQuery(sql);
         if (params != null) {

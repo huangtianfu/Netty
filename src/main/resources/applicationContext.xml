@@ -10,11 +10,15 @@
     <import resource="mysql.xml"/>
     <import resource="redis.xml"/>
 
-    <!-- server扫描目录 -->
-    <context:component-scan base-package="server" />
+    <!-- dao扫描目录 -->
+    <context:component-scan base-package="dao" />
+    <!-- redis扫描目录 -->
+    <context:component-scan base-package="redis" />
     <!-- service扫描目录 -->
     <context:component-scan base-package="service" />
     <!-- thread扫描目录 -->
     <context:component-scan base-package="thread" />
+    <!-- server扫描目录 -->
+    <context:component-scan base-package="server" />
 
 </beans>

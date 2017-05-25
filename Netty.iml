@@ -37,6 +37,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-orm:4.1.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:4.1.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.javassist:javassist:3.18.1-GA" level="project" />
+    <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.6.11" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-test:4.1.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-proxool:4.1.9.Final" level="project" />
     <orderEntry type="library" name="Maven: proxool:proxool:0.8.3" level="project" />

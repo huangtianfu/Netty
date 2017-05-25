@@ -30,6 +30,4 @@
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
         <property name="connectionFactory" ref="jedisConnectionFactory"/>
     </bean>
-
-    <context:component-scan base-package="redis" />
 </beans>
