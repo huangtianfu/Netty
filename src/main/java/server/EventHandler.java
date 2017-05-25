@@ -19,7 +19,6 @@ public class EventHandler extends ChannelInboundHandlerAdapter {
     private ByteBuf mByteBuf;
     private SocketConnection mSocketConnection;
 
-
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) {
         System.out.println(mSocketConnection);
