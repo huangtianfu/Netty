@@ -1,11 +1,19 @@
+package server;
+
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.SocketConnection;
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import protocol.Protocol;
 import utils.ByteUtils;
 
+@Component
+@Scope("prototype")
+@ChannelHandler.Sharable
 public class EventHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = Logger.getLogger(EventHandler.class);
     private ByteBuf mByteBuf;
@@ -13,6 +21,7 @@ public class EventHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) {
+        System.out.println(mSocketConnection);
         mByteBuf = ctx.alloc().buffer();
         mSocketConnection = new SocketConnection(ctx);
     }

@@ -1,3 +1,5 @@
+package server;
+
 import net.SocketConnection;
 import org.apache.log4j.Logger;
 

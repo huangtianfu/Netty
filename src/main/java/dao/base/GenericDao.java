@@ -6,9 +6,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by parallels on 6/4/16.
- */
 public interface GenericDao <T, PK extends Serializable> {
     /* --------------< save >----------------------*/
     void save(T entity);

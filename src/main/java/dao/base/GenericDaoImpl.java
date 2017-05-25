@@ -15,9 +15,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by Aaron Sheng on 6/4/16.
- */
 public class GenericDaoImpl<T, PK extends Serializable> extends HibernateDaoSupport implements GenericDao<T, PK> {
     protected Class<T> mEntityClass;
     protected Class<PK> mPKClass;

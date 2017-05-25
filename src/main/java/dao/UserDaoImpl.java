@@ -1,16 +1,25 @@
 package dao;
 
+import dao.base.GenericDaoImpl;
 import dao.base.ServerBaseDao;
 import dao.base.SqlParam;
 import entity.User;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-@Repository("UserDaoImpl")
-public class UserDaoImpl extends ServerBaseDao<User, Long> implements UserDao {
+import javax.annotation.Resource;
+
+@Repository
+@Transactional("serverTransactionManager")
+public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao {
+    @Resource(name = "serverSessionFactory")
+    public void setServerSessionFactory(SessionFactory sessionFactory) {
+        super.setSessionFactory(sessionFactory);
+    }
+
     @Override
     public Boolean has(Long id) {
-        String sql = "select id from User where id=:id";
-        Long userId = (Long) findUnique(sql, new SqlParam("id", id));
-        return (userId != null);
+        return findByPK(id) != null;
     }
 }

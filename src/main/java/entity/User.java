@@ -1,7 +1,18 @@
 package entity;
 
-public class User {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "user")
+public class User implements Serializable {
+    @Id
+    @Column(name = "id")
     private Long id;
+    @Column(name = "name")
     private String name;
 
     public Long getId() {

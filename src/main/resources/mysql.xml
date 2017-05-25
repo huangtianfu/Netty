@@ -2,15 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/tx
+	   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <!-- dao扫描目录 -->
-    <context:component-scan base-package="dao" />
     <!-- 数据库属性配置文件目录 -->
-    <context:property-placeholder location="classpath:database_rds.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:mysql.properties" ignore-unresolvable="true"/>
 
     <!-- server database pool -->
     <bean id="serverDataSource" class="com.alibaba.druid.pool.DruidDataSource"
@@ -19,10 +20,10 @@
         <property name="username" value="${database.username}"/>
         <property name="password" value="${database.password}"/>
 
-        <property name="maxActive" value="10"/>
-        <property name="initialSize" value="4"/>
+        <property name="maxActive" value="${serverdatabase.maxActive}"/>
+        <property name="initialSize" value="${serverdatabase.initialSize}"/>
+        <property name="minIdle" value="${serverdatabase.minIdle}"/>
         <property name="maxWait" value="60000"/>
-        <property name="minIdle" value="1"/>
 
         <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
         <property name="timeBetweenEvictionRunsMillis" value="30000"/>
@@ -47,9 +48,7 @@
 
     <!-- server database hibernate -->
     <bean id="serverSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource">
-            <ref bean="serverDataSource"/>
-        </property>
+        <property name="dataSource" ref="serverDataSource"/>
 
         <property name="hibernateProperties">
             <props>
@@ -64,10 +63,17 @@
             </props>
         </property>
 
-        <property name="mappingResources">
+        <property name="packagesToScan">
             <list>
-                <value>hbm/server/User.xml</value>
+                <value>entity</value>
             </list>
         </property>
     </bean>
+
+    <bean id="serverTransactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="serverSessionFactory" />
+    </bean>
+
+    <!-- dao扫描目录 -->
+    <context:component-scan base-package="dao" />
 </beans>

@@ -1,3 +1,6 @@
+package server;
+
+import dao.UserDao;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -6,25 +9,27 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import protocol.Protocol;
-import thread.HeartThread;
+import redis.UserRedis;
+import service.UserService;
 
-public class MyServer {
-    public static void main(String[] args) throws Exception {
-        PropertyConfigurator.configure(MyServer.class.getResourceAsStream("/log4j.properties"));
-        Logger logger = Logger.getLogger(MyServer.class);
-        logger.info("Server Start!");
+@Component
+public class Server {
+    @Autowired
+    private EventHandler eventHandler;
 
-        HeartThread heartThread = HeartThread.getInstance();
-        heartThread.start();
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private UserService userService;
 
-        MyServer myServer = new MyServer();
-        myServer.run();
+    public void test() {
+        System.out.println(userDao.has(1L));
     }
 
-    public void run() throws Exception {
+    public void start() throws Exception {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
@@ -35,7 +40,7 @@ public class MyServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         //Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new EventHandler());
+                            ch.pipeline().addLast(eventHandler);
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)
