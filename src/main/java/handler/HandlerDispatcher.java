@@ -1,3 +1,5 @@
+package handler;
+
 import net.SocketConnection;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,8 @@ public class HandlerDispatcher {
 
     /**
      * distribute method response for distribute message to correspond handler.
-     * @param socketConnection   is socket connection.
-     * @param msg             is received message.
+     * @param socketConnection      socket connection.
+     * @param msg                   received message.
      * @return if succeed handle message, return true. Or return false.
      */
     public boolean distribute(SocketConnection socketConnection, String msg) {

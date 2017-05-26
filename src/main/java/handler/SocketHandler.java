@@ -1,3 +1,5 @@
+package handler;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -8,7 +10,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import protocol.Protocol;
 import utils.ByteUtils;
-import utils.StringUtils;
 
 /**
  * Created by Aaron Sheng on 5/26/17.
