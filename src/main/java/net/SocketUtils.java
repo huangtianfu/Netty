@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import protocol.Protocol;
 import utils.ByteUtils;
 
-public class SocketSendUtils {
+public class SocketUtils {
     public static void sendPck(SocketConnection socketConnection, JSONObject jsonObject) {
         String bodyString = jsonObject.toJSONString();
         byte[] bodyBuffer = bodyString.getBytes();
@@ -14,7 +14,7 @@ public class SocketSendUtils {
         int headLen = headBuffer.length;
 
         if (bodyLen >= Protocol.MAX_DATA_LEN) {
-            throw new RuntimeException("SocketSendUtils sendPck package body over flow");
+            throw new RuntimeException("SocketUtils sendPck package body over flow");
         }
 
         byte[] buffer = new byte[headLen + bodyLen];
@@ -33,7 +33,7 @@ public class SocketSendUtils {
         int headLen = headBuffer.length;
 
         if (bodyLen >= Protocol.MAX_DATA_LEN) {
-            throw new RuntimeException("SocketSendUtils sendPck package body over flow");
+            throw new RuntimeException("SocketUtils sendPck package body over flow");
         }
 
         byte[] buffer = new byte[headLen + bodyLen];
@@ -42,7 +42,7 @@ public class SocketSendUtils {
         try {
             client.send(buffer);
         } catch (Exception e) {
-           throw new RuntimeException("SocketSendUtils sendPck exception");
+           throw new RuntimeException("SocketUtils sendPck exception");
         }
     }
 }

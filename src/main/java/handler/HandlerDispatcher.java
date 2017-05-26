@@ -1,6 +1,8 @@
 package handler;
 
+import com.alibaba.fastjson.JSONObject;
 import net.SocketConnection;
+import net.SocketUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +27,10 @@ public class HandlerDispatcher {
     public boolean distribute(SocketConnection socketConnection, String msg) {
         System.out.println(socketConnection.getUserName());
         System.out.println("Receive: " + msg);
+
+        JSONObject returnJsonObject = new JSONObject();
+        returnJsonObject.put("result", "success");
+        SocketUtils.sendPck(socketConnection, returnJsonObject);
 
         return true;
     }
