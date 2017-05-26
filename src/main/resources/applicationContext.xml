@@ -20,5 +20,4 @@
     <context:component-scan base-package="thread" />
     <!-- server扫描目录 -->
     <context:component-scan base-package="server" />
-
 </beans>

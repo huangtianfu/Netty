@@ -1,27 +1,28 @@
-package server;
-
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.SocketConnection;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import protocol.Protocol;
-import utils.ByteUtils;
+import utils.StringUtils;
 
 @Component
 @Scope("prototype")
-@ChannelHandler.Sharable
-public class EventHandler extends ChannelInboundHandlerAdapter {
-    private static final Logger logger = Logger.getLogger(EventHandler.class);
+public class SocketHandler extends ChannelInboundHandlerAdapter {
+    private static final Logger logger = Logger.getLogger(SocketHandler.class);
     private ByteBuf mByteBuf;
     private SocketConnection mSocketConnection;
 
+    @Autowired
+    private HandlerDispatcher handlerDispatcher;
+
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) {
-        System.out.println(mSocketConnection);
+        System.out.println(ctx);
+        System.out.println(this);
         mByteBuf = ctx.alloc().buffer();
         mSocketConnection = new SocketConnection(ctx);
     }
@@ -49,7 +50,8 @@ public class EventHandler extends ChannelInboundHandlerAdapter {
             byte[] headBuf = new byte[Protocol.MAX_HEAD_LEN];
             mByteBuf.getBytes(0, headBuf);
 
-            int bodyLen = ByteUtils.fourBytes2Int(headBuf);
+            int bodyLen = StringUtils.string2Int(new String(headBuf));
+            //int bodyLen = ByteUtils.fourBytes2Int(headBuf);
 
             // header bytes present length wrong. break the loop.
             if (bodyLen <= 0 || bodyLen > Protocol.MAX_DATA_LEN) {
@@ -66,7 +68,7 @@ public class EventHandler extends ChannelInboundHandlerAdapter {
             byte[] bodyBuf = new byte[bodyLen];
             mByteBuf.getBytes(Protocol.MAX_HEAD_LEN, bodyBuf);
 
-            boolean result = HandlerDispatcher.distribute(mSocketConnection, new String(bodyBuf));
+            boolean result = handlerDispatcher.distribute(mSocketConnection, new String(bodyBuf));
 
             // get head and body data from buffer. and decrease readIndex and writeIndex.
             ByteBuf pckBuf = mByteBuf.readBytes(Protocol.MAX_HEAD_LEN + bodyLen);

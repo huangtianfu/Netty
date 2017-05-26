@@ -79,12 +79,6 @@
             <version>3.18.1-GA</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>1.6.11</version>
-        </dependency>
-
         <!-- spring 开发测试用 -->
         <dependency>
             <groupId>org.springframework</groupId>

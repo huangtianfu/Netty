@@ -1,8 +1,6 @@
 package dao;
 
 import dao.base.GenericDaoImpl;
-import dao.base.ServerBaseDao;
-import dao.base.SqlParam;
 import entity.User;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
