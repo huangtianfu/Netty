@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import service.UserService;
 
+/**
+ * Created by Aaron Sheng on 5/26/17.
+ * HandlerDispatcher is event dispatcher. It dispatches event to different handler.
+ */
 @Component
 public class HandlerDispatcher {
     private static Logger logger = Logger.getLogger(HandlerDispatcher.class);

@@ -10,6 +10,12 @@ import protocol.Protocol;
 import utils.ByteUtils;
 import utils.StringUtils;
 
+/**
+ * Created by Aaron Sheng on 5/26/17.
+ * SocketHandler is a event handler for socket event.
+ * SocketHandler is binded to a socket when socket is accepted.
+ * Every SocketChannel has a SocketHandlet in its pipeline.
+ */
 @Component
 @Scope("prototype")
 public class SocketHandler extends ChannelInboundHandlerAdapter {
