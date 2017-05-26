@@ -1,12 +1,12 @@
 package net;
 
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import protocol.Protocol;
 import utils.ByteUtils;
 
 public class SocketSendUtils {
     public static void sendPck(SocketConnection socketConnection, JSONObject jsonObject) {
-        String bodyString = jsonObject.toString();
+        String bodyString = jsonObject.toJSONString();
         byte[] bodyBuffer = bodyString.getBytes();
         int bodyLen = bodyBuffer.length;
 
@@ -25,7 +25,7 @@ public class SocketSendUtils {
     }
 
     public static void sendPck(SocketClient client, JSONObject transferJsonObject) {
-        String bodyString = transferJsonObject.toString();
+        String bodyString = transferJsonObject.toJSONString();
         byte[] bodyBuffer = bodyString.getBytes();
         int bodyLen = bodyBuffer.length;
 
