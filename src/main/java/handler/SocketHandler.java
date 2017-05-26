@@ -29,12 +29,16 @@ public class SocketHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) {
+        System.out.println("connected: " + ctx);
+
         mByteBuf = ctx.alloc().buffer();
         mSocketConnection = new SocketConnection(ctx);
     }
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) {
+        System.out.println("removed: " + ctx);
+
         mSocketConnection.close();
         mByteBuf.release();
         mByteBuf = null;
