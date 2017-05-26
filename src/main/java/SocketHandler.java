@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import protocol.Protocol;
+import utils.ByteUtils;
 import utils.StringUtils;
 
 @Component
@@ -21,8 +22,6 @@ public class SocketHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) {
-        System.out.println(ctx);
-        System.out.println(this);
         mByteBuf = ctx.alloc().buffer();
         mSocketConnection = new SocketConnection(ctx);
     }
@@ -50,8 +49,7 @@ public class SocketHandler extends ChannelInboundHandlerAdapter {
             byte[] headBuf = new byte[Protocol.MAX_HEAD_LEN];
             mByteBuf.getBytes(0, headBuf);
 
-            int bodyLen = StringUtils.string2Int(new String(headBuf));
-            //int bodyLen = ByteUtils.fourBytes2Int(headBuf);
+            int bodyLen = ByteUtils.fourBytes2Int(headBuf);
 
             // header bytes present length wrong. break the loop.
             if (bodyLen <= 0 || bodyLen > Protocol.MAX_DATA_LEN) {
