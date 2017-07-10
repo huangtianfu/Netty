@@ -18,6 +18,8 @@
     <context:component-scan base-package="service" />
     <!-- thread扫描目录 -->
     <context:component-scan base-package="thread" />
-    <!-- server扫描目录 -->
+    <!-- handler扫描目录 -->
     <context:component-scan base-package="handler" />
+    <!-- server扫描目录 -->
+    <context:component-scan base-package="server" />
 </beans>
